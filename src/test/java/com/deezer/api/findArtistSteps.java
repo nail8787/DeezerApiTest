@@ -12,7 +12,6 @@ public class findArtistSteps {
         public void findArtistTest(String string) {
                 String body = given().relaxedHTTPSValidation().baseUri("https://api.deezer.com")
                         .when().get("/search/artist?q=the_beatles").getBody().asString();
-                System.out.println(body);
                 artist_id = Long.parseLong(body.substring(body.indexOf("id") + 4, body.indexOf(',', body.indexOf(("id")))));
         }
         @Тогда("^Уникальный идентификатор равен (\\d+)$")

@@ -8,7 +8,7 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class MyStepdefs {
+public class createPlaylistSteps {
         double  new_playlist_id;
         @Когда("Делается запрос на создание плейлиста c названием {string}")
         public void createPlaylistTest(String string){
