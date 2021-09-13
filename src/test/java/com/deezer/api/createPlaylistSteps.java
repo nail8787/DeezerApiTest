@@ -12,13 +12,13 @@ public class createPlaylistSteps {
     RequestSpecification requestSpecification = new RequestSpecBuilder()
             .setBaseUri("https://api.deezer.com")
             .setRelaxedHTTPSValidation()
+            .addParam("access_token","frKNR5APObxRP81PPPEhu6Cz7ALOtV0BgndlKmhnvXtplb1VbF")
             .build();
 
     @Когда("Создать плейлист с названием {string}")
     public void createPlaylistTest(String string){
         given().spec(requestSpecification)
-                .when().post("/user/4571342102/playlists?title=" + string +
-                        "&access_token=frKNR5APObxRP81PPPEhu6Cz7ALOtV0BgndlKmhnvXtplb1VbF")
+                .when().log().all().post("/user/4571342102/playlists?title=" + string)
                 .then().assertThat().body("$", hasKey("id"));
     }
 
