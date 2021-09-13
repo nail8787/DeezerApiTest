@@ -5,7 +5,8 @@ import io.cucumber.java.ru.Тогда;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.specification.RequestSpecification;
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.CoreMatchers.hasItem;
+import static org.hamcrest.Matchers.hasKey;
 
 public class createPlaylistSteps {
     RequestSpecification requestSpecification = new RequestSpecBuilder()
@@ -18,7 +19,7 @@ public class createPlaylistSteps {
         given().spec(requestSpecification)
                 .when().post("/user/4571342102/playlists?title=" + string +
                         "&access_token=frKNR5APObxRP81PPPEhu6Cz7ALOtV0BgndlKmhnvXtplb1VbF")
-                .then().statusCode(200);
+                .then().assertThat().body("$", hasKey("id"));
     }
 
     @Тогда("Плейлист с названием {string} отображается в плейлистах пользователся с id {long}")
