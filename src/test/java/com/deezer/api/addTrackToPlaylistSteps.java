@@ -1,6 +1,5 @@
 package com.deezer.api;
 
-import io.cucumber.java.After;
 import io.cucumber.java.ru.Дано;
 import io.cucumber.java.ru.Когда;
 import io.cucumber.java.ru.Тогда;
@@ -63,13 +62,7 @@ public class addTrackToPlaylistSteps {
 
     @Тогда("В ответе присутствует описание ошибки")
     public void responseContainsErrorDescription() {
-        System.out.println(error_body.toString());
         error_body.assertThat().body("error.message", equalTo("This song already exists in this playlist"));
     }
 
-    @After
-    public void tearDownPlaylistAdd(){
-        given().spec(requestSpecification)
-                .when().delete("/playlist/" + playlist_id);
-    }
 }

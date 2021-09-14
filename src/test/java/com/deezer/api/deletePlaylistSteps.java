@@ -5,10 +5,6 @@ import io.cucumber.java.ru.Когда;
 import io.cucumber.java.ru.Тогда;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.specification.RequestSpecification;
-import io.restassured.path.json.JsonPath;
-
-import java.math.BigInteger;
-import java.util.HashMap;
 
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.CoreMatchers.*;
@@ -17,31 +13,30 @@ public class deletePlaylistSteps {
     RequestSpecification requestSpecification = new RequestSpecBuilder()
             .setBaseUri("https://api.deezer.com")
             .setRelaxedHTTPSValidation()
+            .addParam("access_token","frKNR5APObxRP81PPPEhu6Cz7ALOtV0BgndlKmhnvXtplb1VbF")
             .build();
 
-    private long playlist_id;
+    private String playlist_id;
     @Дано("В плейлистах пользователя есть плейлист с названием {string}")
-    public void playlistIsPresentTest(String arg0) {
-        given().spec(requestSpecification)
-                .when().get("/user/4571342102/playlists").then().assertThat().body("data.title", hasItem(arg0));
+    public void playlistIsPresent(String playlist_name) {
+        String body = given().spec(requestSpecification)
+                .when().post("/user/4571342102/playlists?title=" + playlist_name)
+                .body().asString();
+        playlist_id = body.substring(body.indexOf("id") + 4, body.indexOf("}"));
+        System.out.println("Плейлист с названием " + playlist_name + " создан и имеет id-" + playlist_id);
     }
 
-    @Когда("Удалить плейлист с идентификатором {biginteger}")
-    public void deletePlaylistAttempt(BigInteger arg0){
-
-        JsonPath body = new JsonPath(given().spec(requestSpecification)
-                        .when().get("/user/4571342102/playlists").getBody().asString());
-        HashMap<String,?> my_playlist = body.get("data.find { it.title == 'my_playlist' } ");
-        playlist_id = (long) my_playlist.get("id");
+    @Когда("Удалить плейлист c названием Delete test")
+    public void deletePlaylistAttempt(){
         given().spec(requestSpecification)
-                .when().delete("/playlist/" + Long.toString(playlist_id) + "&access_token=frKNR5APObxRP81PPPEhu6Cz7ALOtV0BgndlKmhnvXtplb1VbF")
+                .when().delete("/playlist/" + playlist_id)
                 .then().assertThat().body(equalTo("true"));
     }
 
-    @Тогда("Плейлист с названием {string} отсутствует в списке плейлистов пользователя {string}")
-    public void findDeletedPlaylistTest(String arg0, String arg1) {
+    @Тогда("Плейлист отсутствует в списке плейлистов пользователя {string}")
+    public void findDeletedPlaylistTest(String user_id) {
         given().spec(requestSpecification)
-                .when().get("/user/" + arg1 + "/playlists")
-                .then().assertThat().body("data.title", is(not(hasItem(arg0)))).and().body("data.id", is(not(hasItem(Long.toString(playlist_id)))));
+                .when().get("/user/" + user_id + "/playlists")
+                .then().assertThat().body("data.id", is(not(hasItem(playlist_id))));
     }
 }
