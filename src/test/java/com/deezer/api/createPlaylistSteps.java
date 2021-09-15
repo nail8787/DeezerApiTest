@@ -1,7 +1,5 @@
 package com.deezer.api;
 
-import io.cucumber.java.After;
-import io.cucumber.java.AfterStep;
 import io.cucumber.java.ru.Когда;
 import io.cucumber.java.ru.Тогда;
 import io.restassured.builder.RequestSpecBuilder;
@@ -19,11 +17,10 @@ public class createPlaylistSteps {
             .build();
 
     public String playlist_id;
-    private Response response;
     @Когда("Создать плейлист с названием {string}")
-    public void createPlaylistTest(String string){
-        response = given().spec(requestSpecification)
-                .when().post("/user/4571342102/playlists?title=" + string);
+    public void createPlaylistTest(String playlist_name){
+        Response response = given().spec(requestSpecification)
+                .when().post("/user/4571342102/playlists?title=" + playlist_name);
         response.then().assertThat().body("$", hasKey("id"));
         String body = response.getBody().asString();
         playlist_id = body.substring(body.indexOf("id") + 4, body.indexOf("}"));
@@ -35,12 +32,5 @@ public class createPlaylistSteps {
         given().spec(requestSpecification).
                 when().get("/user/" + id + "/playlists")
                 .then().assertThat().body("data.title", hasItem(title));
-    }
-
-    @After("@playlist")
-    public void tearDownPlaylistAdd(){
-        System.out.println("Deleting playlist after tests");
-        given().spec(requestSpecification)
-                .when().delete("/playlist/" + playlist_id);
     }
 }

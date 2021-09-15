@@ -26,6 +26,7 @@ public class addTrackToPlaylistSteps {
                 .when().post("/user/4571342102/playlists?title=" + playlist_name)
                 .body().asString();
         playlist_id = body.substring(body.indexOf("id") + 4, body.indexOf("}"));
+        System.out.println("Created playlist " + playlist_name + " with id-" + playlist_id);
     }
 
     @Когда("Добавить песню с идентификатором {string} в плейлист")
@@ -64,5 +65,4 @@ public class addTrackToPlaylistSteps {
     public void responseContainsErrorDescription() {
         error_body.assertThat().body("error.message", equalTo("This song already exists in this playlist"));
     }
-
 }
