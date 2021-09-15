@@ -1,4 +1,4 @@
-package com.deezer.api;
+package utilities;
 
 import io.cucumber.java.After;
 import io.restassured.builder.RequestSpecBuilder;
