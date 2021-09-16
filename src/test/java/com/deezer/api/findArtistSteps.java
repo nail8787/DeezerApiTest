@@ -2,22 +2,16 @@ package com.deezer.api;
 
 import io.cucumber.java.ru.Когда;
 import io.cucumber.java.ru.Тогда;
-import io.restassured.builder.RequestSpecBuilder;
-import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.Assertions;
 
 import static io.restassured.RestAssured.given;
 
 public class findArtistSteps {
-        long artist_id;
-        RequestSpecification requestSpecification = new RequestSpecBuilder()
-                .setBaseUri("https://api.deezer.com")
-                .setRelaxedHTTPSValidation()
-                .build();
+        private long artist_id;
 
         @Когда("Найти исполнителя с именем {string}")
         public void findArtistTest(String string) {
-                String body = given().spec(requestSpecification)
+                String body = given()
                         .when().get("/search/artist?q=the_beatles").getBody().asString();
                 artist_id = Long.parseLong(body.substring(body.indexOf("id") + 4, body.indexOf(',', body.indexOf(("id")))));
         }

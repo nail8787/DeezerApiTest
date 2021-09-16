@@ -2,24 +2,17 @@ package com.deezer.api;
 
 import io.cucumber.java.ru.Когда;
 import io.cucumber.java.ru.Тогда;
-import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.response.Response;
-import io.restassured.specification.RequestSpecification;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.Matchers.hasKey;
 
 public class createPlaylistSteps {
-    RequestSpecification requestSpecification = new RequestSpecBuilder()
-            .setBaseUri("https://api.deezer.com")
-            .setRelaxedHTTPSValidation()
-            .addParam("access_token","frKNR5APObxRP81PPPEhu6Cz7ALOtV0BgndlKmhnvXtplb1VbF")
-            .build();
 
     public String playlist_id;
     @Когда("Создать плейлист с названием {string}")
     public void createPlaylistTest(String playlist_name){
-        Response response = given().spec(requestSpecification)
+        Response response = given()
                 .when().post("/user/4571342102/playlists?title=" + playlist_name);
         response.then().assertThat().body("$", hasKey("id"));
         String body = response.getBody().asString();
@@ -29,8 +22,8 @@ public class createPlaylistSteps {
 
     @Тогда("Плейлист с названием {string} отображается в плейлистах пользователся с id {long}")
     public void checkThatPlaylistIsInUsersProfile(String title, long id) {
-        given().spec(requestSpecification).
-                when().get("/user/" + id + "/playlists")
+        given()
+                .when().get("/user/" + id + "/playlists")
                 .then().assertThat().body("data.title", hasItem(title));
     }
 }
