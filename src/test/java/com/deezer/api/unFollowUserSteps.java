@@ -21,9 +21,6 @@ public class unFollowUserSteps {
         given().spec(requestSpecification).params("user_id", following_user_id)
                 .when().post("/user/" + user_id + "/followings")
                 .then().assertThat().body(equalTo("true"));
-        given().spec(requestSpecification)
-                .when().get("/user/" + user_id + "/followings")
-                .then().log().body();
     }
 
     @Когда("Пользователь {string} прекращает отслеживать пользователя {string}")
