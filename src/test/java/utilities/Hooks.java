@@ -30,4 +30,9 @@ public class Hooks {
             }
         }
     }
+
+    @After("@follow")
+    public void tearDownFollow() {
+
+    }
 }
