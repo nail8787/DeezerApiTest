@@ -1,4 +1,4 @@
-package com.deezer;
+package com.deezer.api;
 
 import io.cucumber.java.ru.Когда;
 import io.cucumber.java.ru.Тогда;
