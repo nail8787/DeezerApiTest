@@ -1,14 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.deezer.api.RunnerTest
 -------------------------------------------------------------------------------
-Tests run: 3, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 4.412 sec <<< FAILURE!
-Успешное удаление плейлиста с уникальным идентификатором(Удаление плейлиста)  Time elapsed: 0.55 sec  <<< FAILURE!
-org.opentest4j.AssertionFailedError: expected: <true> but was: <{"error":{"type":"DataException","message":"no data","code":800}}>
-	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:55)
-	at org.junit.jupiter.api.AssertionUtils.failNotEqual(AssertionUtils.java:62)
-	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:182)
-	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:177)
-	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1124)
-	at com.deezer.api.deletePlaylistSteps.deletePlaylistAttempt(deletePlaylistSteps.java:24)
-	at ✽.Удалить плейлист с идентификатором 9463544002(file:///Users/out-dzhafarov-ne/IdeaProjects/Public_api_test/src/test/resources/features/deletePlaylist.feature:4)
-
+Tests run: 11, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 34.279 s - in com.deezer.api.RunnerTest

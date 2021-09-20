@@ -29,7 +29,6 @@ public class addTrackToPlaylistSteps {
                 .then().assertThat().body(equalTo("true"));
     }
 
-
     @Тогда("Песня c идентификатором {string} отображается в плейлисте")
     public void trackIsPresentInPlaylist(String track_id) {
             given()
