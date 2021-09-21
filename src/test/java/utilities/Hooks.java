@@ -33,6 +33,11 @@ public class Hooks {
         RestAssured.requestSpecification = requestSpecification;
     }
 
+    @Before("@tracks")
+    public void setUpTracks() {
+        JsonReader.getJson();
+    }
+
     @After ("@playlist")
     public void tearDown() {
         String body = given().get("/user/4571342102/playlists").getBody().asString();
