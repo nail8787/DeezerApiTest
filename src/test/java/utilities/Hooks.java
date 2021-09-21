@@ -43,7 +43,20 @@ public class Hooks {
         } catch (IOException e) {
             System.err.println("ОШИБКА: Файл свойств отсуствует!");
         }
-        JsonReader.getJson(properties.getProperty("testDataPath"));
+        JsonReaderTrack.getJson(properties.getProperty("testDataPath"));
+    }
+
+    @Before("@artist")
+    public void setUpArtist() {
+        FileInputStream fis;
+        Properties properties = new Properties();
+        try {
+            fis = new FileInputStream("src/test/resources/application.properties");
+            properties.load(fis);
+        } catch (IOException e) {
+            System.err.println("ОШИБКА: Файл свойств отсуствует!");
+        }
+        JsonReaderArtist.getJson(properties.getProperty("testDataPath"));
     }
 
     @After ("@playlist")

@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.deezer.api.RunnerTest
 -------------------------------------------------------------------------------
-Tests run: 12, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 49.469 s - in com.deezer.api.RunnerTest
+Tests run: 17, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 50.531 s - in com.deezer.api.RunnerTest

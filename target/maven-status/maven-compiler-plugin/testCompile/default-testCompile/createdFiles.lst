@@ -1,13 +1,15 @@
 com/deezer/api/createPlaylistSteps.class
+utilities/JsonReaderArtist.class
 com/deezer/api/addPlaylistToFavoriteSteps.class
+utilities/JsonReaderTrack.class
 com/deezer/api/deleteTrackFromPlaylistSteps.class
 com/deezer/api/addTrackToPlaylistSteps.class
 com/deezer/api/deletePlaylistFromFavoriteSteps.class
 com/deezer/api/deletePlaylistSteps.class
+utilities/Artist.class
 com/deezer/api/RunnerTest.class
 com/deezer/api/followUserSteps.class
 utilities/Track.class
 utilities/Hooks.class
 com/deezer/api/findArtistSteps.class
 com/deezer/api/unFollowUserSteps.class
-utilities/JsonReader.class

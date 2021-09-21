@@ -4,11 +4,9 @@ import io.cucumber.java.ru.Дано;
 import io.cucumber.java.ru.Когда;
 import io.cucumber.java.ru.Тогда;
 import io.restassured.response.ValidatableResponse;
-import utilities.JsonReader;
-import utilities.Track;
 
-import java.util.Arrays;
-import java.util.List;
+import utilities.JsonReaderTrack;
+import utilities.Track;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
@@ -19,9 +17,8 @@ public class addTrackToPlaylistSteps {
     private ValidatableResponse error_body;
 
     private String findTrackByName(String trackName) {
-        List<Track> tracks = Arrays.asList(JsonReader.tracks);
         String trackId = "";
-        for (Track current : tracks) {
+        for (Track current : JsonReaderTrack.tracks) {
             if (current.getTrackName().equals(trackName))
                 trackId = current.getTrackId();
         }
@@ -37,7 +34,7 @@ public class addTrackToPlaylistSteps {
         System.out.println("Created playlist " + playlist_name + " with id-" + playlist_id);
     }
 
-    @Когда("Добавить песню с идентификатором {string} в плейлист")
+    @Когда("Добавить песню {string} в плейлист")
     public void addTrackToPlaylistTest(String trackName) {
         String trackId = findTrackByName(trackName);
         given().param("songs", trackId)
@@ -45,7 +42,7 @@ public class addTrackToPlaylistSteps {
                 .then().assertThat().body(equalTo("true"));
     }
 
-    @Тогда("Песня c идентификатором {string} отображается в плейлисте")
+    @Тогда("Песня {string} отображается в плейлисте")
     public void trackIsPresentInPlaylist(String trackName) {
         String trackId = findTrackByName(trackName);
         given().when().get("/playlist/" + playlist_id)
