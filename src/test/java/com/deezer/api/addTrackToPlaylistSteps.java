@@ -25,7 +25,6 @@ public class addTrackToPlaylistSteps {
             if (current.getTrackName().equals(trackName))
                 trackId = current.getTrackId();
         }
-        System.out.println("trackId = " + trackId);
         return trackId;
     }
 

@@ -10,10 +10,10 @@ public class JsonReader {
 
     public static Track[] tracks;
 
-    public static void getJson() {
+    public static void getJson(String testDirectory) {
         ObjectMapper mapper = new ObjectMapper();
         try {
-            tracks = mapper.readValue(new File("/Users/out-dzhafarov-ne/IdeaProjects/Public_api_test/src/test/resources/testData/TracksData.json")
+            tracks = mapper.readValue(new File(testDirectory + "TracksData.json")
                     , Track[].class);
 //            for (int i = 0; i < tracks.length; i++){
 //                System.out.println(tracks[i].getTrackName() + " - id = " + tracks[i].getTrackId());

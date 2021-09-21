@@ -35,7 +35,15 @@ public class Hooks {
 
     @Before("@tracks")
     public void setUpTracks() {
-        JsonReader.getJson();
+        FileInputStream fis;
+        Properties properties = new Properties();
+        try {
+            fis = new FileInputStream("src/test/resources/application.properties");
+            properties.load(fis);
+        } catch (IOException e) {
+            System.err.println("ОШИБКА: Файл свойств отсуствует!");
+        }
+        JsonReader.getJson(properties.getProperty("testDataPath"));
     }
 
     @After ("@playlist")
