@@ -4,6 +4,7 @@ import io.cucumber.java.ru.Когда;
 import io.cucumber.java.ru.Тогда;
 import org.junit.jupiter.api.Assertions;
 import utilities.Artist;
+import utilities.EndPoints;
 import utilities.JsonReaderArtist;
 
 import static io.restassured.RestAssured.given;
@@ -22,8 +23,8 @@ public class findArtistSteps {
 
         @Когда("Найти исполнителя с именем {string}")
         public void findArtistTest(String artist_name) {
-                String body = given()
-                        .when().get("/search/artist?q=" + artist_name).getBody().asString();
+                String body = given().param("q", artist_name)
+                        .when().get(EndPoints.searchArtist).getBody().asString();
                 artist_id = Long.parseLong(body.substring(body.indexOf("id") + 4, body.indexOf(',', body.indexOf(("id")))));
         }
         @Тогда("В ответе корректный уникальный идентификатор артиста {string}")

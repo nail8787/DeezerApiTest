@@ -1,4 +1,7 @@
 -------------------------------------------------------------------------------
 Test set: com.deezer.api.RunnerTest
 -------------------------------------------------------------------------------
-Tests run: 27, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 100.282 s - in com.deezer.api.RunnerTest
+Tests run: 27, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 63.971 s <<< FAILURE! - in com.deezer.api.RunnerTest
+Песня уже присутствует в плейлисте  Time elapsed: 2.155 s  <<< ERROR!
+java.lang.IllegalArgumentException: Path parameters were not correctly defined. Redundant path parameters are: playlustId=9501413002. Undefined path parameters are: playlistId.
+

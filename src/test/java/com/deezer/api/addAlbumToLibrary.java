@@ -1,8 +1,10 @@
 package com.deezer.api;
 
+import io.cucumber.java.af.En;
 import io.cucumber.java.ru.Когда;
 import io.cucumber.java.ru.Тогда;
 import utilities.Album;
+import utilities.EndPoints;
 import utilities.JsonReaderAlbum;
 
 import static io.restassured.RestAssured.given;
@@ -20,18 +22,19 @@ public class addAlbumToLibrary {
         return albumId;
     }
 
-    @Когда("Добавить альбом {string}")
-    public void addAlbumToLibrary(String albumName) {
+    @Когда("Добавить альбом {string} в библиотеку пользователя {string}")
+    public void addAlbumToLibrary(String albumName, String user_id) {
         String albumId = findAlbumByName(albumName);
-        given().param("album_id", albumId)
-                .when().post("/user/4571342102/albums")
+        given().param("album_id", albumId).pathParam("id", user_id)
+                .when().post(EndPoints.albums)
                 .then().assertThat().body(equalTo("true"));
     }
 
     @Тогда("Альбом {string} отображается в библиотеке пользователя {string}")
     public void checkAlbum(String albumName, String user_id) {
         String albumId = findAlbumByName(albumName);
-        given().when().get("/user/" + user_id + "/albums")
+        given().pathParam("id", user_id)
+                .when().get(EndPoints.albums)
                 .then().assertThat().body("data.id", hasItem(Integer.parseInt(albumId)));
     }
 }
