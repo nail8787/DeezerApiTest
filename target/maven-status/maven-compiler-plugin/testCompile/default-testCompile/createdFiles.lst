@@ -4,8 +4,11 @@ com/deezer/api/addPlaylistToFavoriteSteps.class
 utilities/JsonReaderTrack.class
 com/deezer/api/deleteTrackFromPlaylistSteps.class
 com/deezer/api/addTrackToPlaylistSteps.class
+com/deezer/api/addAlbumToLibrary.class
+utilities/JsonReaderAlbum.class
 com/deezer/api/deletePlaylistFromFavoriteSteps.class
 com/deezer/api/deletePlaylistSteps.class
+utilities/Album.class
 utilities/Artist.class
 com/deezer/api/RunnerTest.class
 com/deezer/api/followUserSteps.class

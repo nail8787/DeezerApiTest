@@ -59,6 +59,19 @@ public class Hooks {
         JsonReaderArtist.getJson(properties.getProperty("testDataPath"));
     }
 
+    @Before("@albums")
+    public void setUpAlbums() {
+        FileInputStream fis;
+        Properties properties = new Properties();
+        try {
+            fis = new FileInputStream("src/test/resources/application.properties");
+            properties.load(fis);
+        } catch (IOException e) {
+            System.err.println("ОШИБКА: Файл свойств отсуствует!");
+        }
+        JsonReaderAlbum.getJson(properties.getProperty("testDataPath"));
+    }
+
     @After ("@playlist")
     public void tearDown() {
         String body = given().get("/user/4571342102/playlists").getBody().asString();
@@ -81,6 +94,18 @@ public class Hooks {
             System.out.println("Unfollow user " + followings_id.toString() + " after tests");
             given().params("user_id", followings_id)
                     .when().delete("/user/4571342102/followings");
+        }
+    }
+
+    @After("@albums")
+    public void tearDownAlbums() {
+        String body = given().get("/user/4571342102/albums").getBody().asString();
+        JsonPath response = new JsonPath(body);
+        List<Integer> albums_ids = response.getList("data.id");
+        for (Integer albums_id: albums_ids) {
+            System.out.println("Delete album from library " + albums_id.toString() + " after tests");
+            given().params("album_id", albums_id)
+                    .when().delete("/user/4571342102/albums");
         }
     }
 }
