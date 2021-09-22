@@ -6,6 +6,7 @@ import io.cucumber.java.ru.Когда;
 import io.cucumber.java.ru.Тогда;
 import io.restassured.response.Response;
 import utilities.EndPoints;
+import utilities.playlistFactory;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
@@ -16,12 +17,7 @@ public class deleteTrackFromPlaylistSteps {
 
     @Дано("Существует плейлист с название {string} у пользователя с идентификатором {string}")
     public void createPlaylistForTest(String playlist_name, String user_id) {
-       Response response = given().pathParam("id", user_id).param("title", playlist_name)
-               .when().post(EndPoints.playlists);
-       response.then().assertThat().body("$", hasKey("id"));
-       String body = response.getBody().asString();
-       playlist_id = body.substring(body.indexOf("id") + 4, body.indexOf("}"));
-       System.out.println("Created playlist with id-" + playlist_id);
+        playlist_id = playlistFactory.createPlaylist(playlist_name);
     }
 
     @И("В плейлисте присутствует песня с идентификатором {string}")

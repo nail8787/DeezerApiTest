@@ -6,6 +6,9 @@ import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.path.json.JsonPath;
 import io.restassured.specification.RequestSpecification;
+import utilities.JsonReader.JsonReaderAlbum;
+import utilities.JsonReader.JsonReaderArtist;
+import utilities.JsonReader.JsonReaderTrack;
 
 import java.io.FileInputStream;
 import java.io.IOException;

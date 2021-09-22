@@ -6,8 +6,8 @@ import io.cucumber.java.ru.Тогда;
 import io.restassured.response.ValidatableResponse;
 
 import utilities.EndPoints;
-import utilities.JsonReaderTrack;
-import utilities.Track;
+import utilities.Searching;
+import utilities.playlistFactory;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
@@ -17,27 +17,14 @@ public class addTrackToPlaylistSteps {
     private String playlist_id;
     private ValidatableResponse error_body;
 
-    private String findTrackByName(String trackName) {
-        String trackId = "";
-        for (Track current : JsonReaderTrack.tracks) {
-            if (current.getTrackName().equals(trackName))
-                trackId = current.getTrackId();
-        }
-        return trackId;
-    }
-
     @Дано("Создан плейлист с названием {string}")
     public void playlistCreated(String playlist_name) {
-        String body = given().pathParam("id", EndPoints.my_id).param("title", playlist_name)
-                .when().post(EndPoints.playlists)
-                .body().asString();
-        playlist_id = body.substring(body.indexOf("id") + 4, body.indexOf("}"));
-        System.out.println("Created playlist " + playlist_name + " with id-" + playlist_id);
+        playlist_id = playlistFactory.createPlaylist(playlist_name);
     }
 
     @Когда("Добавить песню {string} в плейлист")
     public void addTrackToPlaylistTest(String trackName) {
-        String trackId = findTrackByName(trackName);
+        String trackId = Searching.findTrackByName(trackName);
         given().param("songs", trackId).pathParam("playlistId", playlist_id)
                 .when().post(EndPoints.playlistTracks)
                 .then().assertThat().body(equalTo("true"));
@@ -45,7 +32,7 @@ public class addTrackToPlaylistSteps {
 
     @Тогда("Песня {string} отображается в плейлисте")
     public void trackIsPresentInPlaylist(String trackName) {
-        String trackId = findTrackByName(trackName);
+        String trackId = Searching.findTrackByName(trackName);
         given().pathParam("playlistId", playlist_id)
                 .when().get(EndPoints.playlist)
                 .then().assertThat().body("tracks.data.id", hasItem(Integer.parseInt(trackId)));
