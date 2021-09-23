@@ -15,6 +15,7 @@ public class addPlaylistToFavoriteSteps {
         given().params("playlist_id", playlist_id).pathParam("id", user_id)
                 .when().post(EndPoints.playlists)
                 .then().assertThat().body(equalTo("true"));
+        System.out.println("Playlist " + playlist_id + " added to favorite");
     }
 
     @Тогда("Плейлист {long} отображается в любимых плейлистах пользователя {string}")

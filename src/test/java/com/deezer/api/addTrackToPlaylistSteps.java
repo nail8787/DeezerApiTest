@@ -28,6 +28,7 @@ public class addTrackToPlaylistSteps {
         given().param("songs", trackId).pathParam("playlistId", playlist_id)
                 .when().post(EndPoints.playlistTracks)
                 .then().assertThat().body(equalTo("true"));
+        System.out.println("Track \"" + trackName + "\" added to playlist");
     }
 
     @Тогда("Песня {string} отображается в плейлисте")
@@ -58,5 +59,21 @@ public class addTrackToPlaylistSteps {
     @Тогда("В ответе присутствует описание ошибки")
     public void responseContainsErrorDescription() {
         error_body.assertThat().body("error.message", equalTo("This song already exists in this playlist"));
+    }
+
+    @Дано("Существует плейлист с названием {string}")
+    public void playlistExists(String playlistName) {
+        playlist_id = playlistFactory.createPlaylist(playlistName);
+    }
+
+    @Когда("Пользователь добавляет песню с несуществующим идентификатором {string}")
+    public void addingNonExistentTrackToPlaylist(String trackId) {
+        error_body = given().param("songs", trackId).pathParam("playlistId", playlist_id)
+                .when().post(EndPoints.playlistTracks).then();
+    }
+
+    @Тогда("В ответе присутствует ошибка типа {string}")
+    public void checkErrorTypeInResponse(String errorType) {
+        error_body.assertThat().body("error.type", equalTo(errorType));
     }
 }

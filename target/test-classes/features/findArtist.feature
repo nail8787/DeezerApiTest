@@ -12,3 +12,8 @@
       | 'Rammstein'   |
       | 'Drake'       |
       | 'Daft Punk'   |
+
+  @search @artist
+  Сценарий: Исполнитель не найден
+    Когда Найти исполнителя с несуществующим именем 'cewygfiveyrgcnerkfgxeryfgni'
+    Тогда В ответе нет ни одной записи

@@ -17,6 +17,7 @@ public class addAlbumToLibrary {
         given().param("album_id", albumId).pathParam("id", user_id)
                 .when().post(EndPoints.albums)
                 .then().assertThat().body(equalTo("true"));
+        System.out.println("Album \"" + albumName + "\" added to library");
     }
 
     @Тогда("Альбом {string} отображается в библиотеке пользователя {string}")

@@ -83,7 +83,22 @@ public class Hooks {
         for (Long playlist_id: playlist_ids) {
             if (playlist_id != Long.parseLong("9460098222")) {
                 System.out.println("Deleting playlist " + playlist_id.toString() + " after tests");
-                given().when().delete("/playlist/" + playlist_id.toString());
+                given().pathParam("playlistId", playlist_id.toString())
+                        .when().delete(EndPoints.playlist);
+            }
+        }
+    }
+
+    @After ("@favoritePlaylist")
+    public void tearDownFavoritePlaylist() {
+        String body = given().get("/user/4571342102/playlists").getBody().asString();
+        JsonPath response = new JsonPath(body);
+        List<Long> playlist_ids = response.getList("data.id");
+        for (Long playlist_id: playlist_ids) {
+            if (playlist_id != Long.parseLong("9460098222")) {
+                System.out.println("Deleting playlist " + playlist_id.toString() + " from favorite after tests");
+                given().pathParam("id", EndPoints.my_id).param("playlist_id", playlist_id.toString())
+                        .when().delete(EndPoints.playlists);
             }
         }
     }
@@ -95,8 +110,8 @@ public class Hooks {
         List<Long> followings_ids = response.getList("data.id");
         for (Long followings_id: followings_ids) {
             System.out.println("Unfollow user " + followings_id.toString() + " after tests");
-            given().params("user_id", followings_id)
-                    .when().delete("/user/4571342102/followings");
+            given().params("user_id", followings_id).pathParam("id", EndPoints.my_id)
+                    .when().delete(EndPoints.followings);
         }
     }
 
@@ -107,8 +122,8 @@ public class Hooks {
         List<Integer> albums_ids = response.getList("data.id");
         for (Integer albums_id: albums_ids) {
             System.out.println("Delete album from library " + albums_id.toString() + " after tests");
-            given().params("album_id", albums_id)
-                    .when().delete("/user/4571342102/albums");
+            given().params("album_id", albums_id).pathParam("id", EndPoints.my_id)
+                    .when().delete(EndPoints.albums);
         }
     }
 }
