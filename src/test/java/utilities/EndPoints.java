@@ -9,4 +9,5 @@ public final class EndPoints {
     public final static String playlistTracks = "/playlist/{playlistId}/tracks";
     public final static String searchArtist = "/search/artist";
     public final static String followings = "/user/{id}/followings";
+    public final static String podcasts = "/user/{id}/podcasts";
 }

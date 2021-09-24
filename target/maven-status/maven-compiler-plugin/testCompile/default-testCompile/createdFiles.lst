@@ -13,6 +13,7 @@ utilities/JsonReader/JsonReaderArtist.class
 utilities/JsonReader/JsonReaderTrack.class
 com/deezer/api/RunnerTest.class
 utilities/JsonReader/JsonReaderAlbum.class
+com/deezer/api/addPodcastToFavoriteSteps.class
 utilities/Searching.class
 com/deezer/api/followUserSteps.class
 utilities/Hooks.class

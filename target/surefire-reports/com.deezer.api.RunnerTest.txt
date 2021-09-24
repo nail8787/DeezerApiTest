@@ -1,4 +1,12 @@
 -------------------------------------------------------------------------------
 Test set: com.deezer.api.RunnerTest
 -------------------------------------------------------------------------------
-Tests run: 30, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 68.96 s - in com.deezer.api.RunnerTest
+Tests run: 31, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 68.672 s <<< FAILURE! - in com.deezer.api.RunnerTest
+Успешное добавление подкаста в любимые  Time elapsed: 0.73 s  <<< FAILURE!
+java.lang.AssertionError: 
+1 expectation failed.
+Response body doesn't match expectation.
+Expected: "true"
+  Actual: {"error":{"type":"InvalidQueryException","message":"Invalid query","code":600}}
+
+
