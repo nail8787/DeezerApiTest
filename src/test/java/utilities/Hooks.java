@@ -1,14 +1,15 @@
 package utilities;
 
+import com.deezer.api.endpoints.EndPoints;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.path.json.JsonPath;
 import io.restassured.specification.RequestSpecification;
-import utilities.JsonReader.JsonReaderAlbum;
-import utilities.JsonReader.JsonReaderArtist;
-import utilities.JsonReader.JsonReaderTrack;
+import com.deezer.api.helpers.JsonReader.JsonReaderAlbum;
+import com.deezer.api.helpers.JsonReader.JsonReaderArtist;
+import com.deezer.api.helpers.JsonReader.JsonReaderTrack;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -23,7 +24,7 @@ public class Hooks {
         FileInputStream fis;
         Properties properties = new Properties();
         try {
-            fis = new FileInputStream("src/test/resources/application.properties");
+            fis = new FileInputStream("src/test/resources/properties/application.properties");
             properties.load(fis);
         } catch (IOException e) {
             System.err.println("ОШИБКА: Файл свойств отсуствует!");
@@ -41,7 +42,7 @@ public class Hooks {
         FileInputStream fis;
         Properties properties = new Properties();
         try {
-            fis = new FileInputStream("src/test/resources/application.properties");
+            fis = new FileInputStream("src/test/resources/properties/application.properties");
             properties.load(fis);
         } catch (IOException e) {
             System.err.println("ОШИБКА: Файл свойств отсуствует!");
@@ -54,7 +55,7 @@ public class Hooks {
         FileInputStream fis;
         Properties properties = new Properties();
         try {
-            fis = new FileInputStream("src/test/resources/application.properties");
+            fis = new FileInputStream("src/test/resources/properties/application.properties");
             properties.load(fis);
         } catch (IOException e) {
             System.err.println("ОШИБКА: Файл свойств отсуствует!");
@@ -67,7 +68,7 @@ public class Hooks {
         FileInputStream fis;
         Properties properties = new Properties();
         try {
-            fis = new FileInputStream("src/test/resources/application.properties");
+            fis = new FileInputStream("src/test/resources/properties/application.properties");
             properties.load(fis);
         } catch (IOException e) {
             System.err.println("ОШИБКА: Файл свойств отсуствует!");
