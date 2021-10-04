@@ -1,5 +1,8 @@
 package utilities;
 
+import com.deezer.api.DAO.PlaylistDAO;
+import com.deezer.api.DAO.PlaylistTracksDAO;
+import com.deezer.api.DAO.TrackDAO;
 import com.deezer.api.endpoints.EndPoints;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
@@ -88,6 +91,16 @@ public class Hooks {
                         .when().delete(EndPoints.playlist);
             }
         }
+    }
+
+    @After ("@dbtest")
+    public void tearDownDB() {
+        PlaylistTracksDAO playlistTracksDAO = new PlaylistTracksDAO();
+        PlaylistDAO playlistDAO = new PlaylistDAO();
+        TrackDAO trackDAO = new TrackDAO();
+        playlistTracksDAO.deleteAll();
+        playlistDAO.deleteAll();
+        trackDAO.deleteAll();
     }
 
     @After ("@favoritePlaylist")

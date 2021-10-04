@@ -7,3 +7,16 @@
 * @search Тест функционала поиска
 * @album  Тест функционала альбомов
 * @podcast Тест функционала подкастов (@notworking Видимо пока возможность полностью не реализована)
+* @dbtest Тест проверкой базы данных (Отключены в раннере, так как необходима база данных с внесением настроек в ConnectionFactory)
+
+##### Необходимые таблицы базы данных для @dbtest
+1. Название таблицы: playlists
+   1. Столбец 1: playlist_id. Тип: bigint. Primary key
+   2. Столбец 2: title. Тип: text
+2. Название таблицы: tracks
+    1. Столбец 1: track_id. Тип: bigint. Primary key
+    2. Столбец 2: name. Тип: text
+2. Название таблицы: playlist_tracks
+    1. Столбец 1: playlist_id. Тип: bigint. Primary key
+    2. Столбец 2: track_id. Тип: bigint. Primary key
+    3. Foreing keys: playlist_id reference playlists (playlist_id), track_id reference tracks(track_id)

@@ -8,7 +8,9 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
         features = "src/test/resources/features",
         glue = {"com.deezer.api", "utilities"},
-        plugin = { "pretty", "io.qameta.allure.cucumber6jvm.AllureCucumber6Jvm"}
+        plugin = { "pretty", "io.qameta.allure.cucumber6jvm.AllureCucumber6Jvm"},
+        tags = "not @dbtest"
 )
+
 public class RunnerTest {
 }

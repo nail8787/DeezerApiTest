@@ -36,5 +36,11 @@ public class Track {
         this.trackName = trackName;
     }
 
-
+    @Override
+    public String toString() {
+        return "Track{" +
+                "trackId='" + trackId + '\'' +
+                ", trackName='" + trackName + '\'' +
+                '}';
+    }
 }
